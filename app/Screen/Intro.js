@@ -5,15 +5,16 @@ import { Colors } from '@/constants/Colors';
 import { AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function Intro() {
+export function Intro({onFinish}) {
     const [Name,setName]=useState('')
 
-    const handleuser = text => setName(text);
+    const handleuser = (text) => setName(text);
 
     const handlesubmit=async()=>{
         const user={name:Name}
         await AsyncStorage.setItem('user',JSON.stringify(user));
         console.log('Saved successfuly')
+        if(onFinish) onFinish();
     }
     
     //console.log(User);

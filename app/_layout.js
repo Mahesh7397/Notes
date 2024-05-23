@@ -10,17 +10,19 @@ export default function RootLayout() {
   const [User,setUser] = useState({})
   const finduser=async()=>{
     const result=await AsyncStorage.getItem('user');
-     console.log(result)
-     setUser(JSON.parse(result));
-     console.log(User)
+     //console.log(result)
+     if(result!== null){setUser(JSON.parse(result));}
+     //console.log(User)
   }
 
   useEffect(()=>{
     finduser()
+    //AsyncStorage.clear();
   },[])
   return (
     <View style={{flex:1}}>
-      <Notes User={User.name}/>
+      {!User.name?<Intro onFinish={finduser}/>:
+        <Notes User={User.name}/>}
     </View>
   );
 }
