@@ -1,17 +1,21 @@
 import { View, Text, StatusBar ,StyleSheet, SafeAreaView, Pressable, TouchableWithoutFeedback, Keyboard, FlatList} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Colors } from '@/constants/Colors'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 import Searchbar from '../../components/Searchbar'
 import { AntDesign } from '@expo/vector-icons'
 import { Noteinputmodul } from '../../components/Noteinputmodul'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Note from '../../components/Note'
+import { useNotes } from '../../constants/Contextprovider'
+import Notfound from '../../components/Notfound'
 
-export default function Notes({User}){
+export default function Notes({User ,setvi,setno}){
     const [Greek,setGreek]=useState('');
     const [add,setadd]=useState(false);
-    const [notes,setnotes]=useState([])
+    const { notes,setnotes ,findnote }=useNotes()
+    const [Searchquery,setsearchquery]=useState('');
+    const [Resultnotfound,setReultnotfound]=useState(false)
+    
     const findgreek=()=>{
       const hrs=new Date().getHours();
       if(hrs===0||hrs<12) return setGreek('Morning')
@@ -19,14 +23,7 @@ export default function Notes({User}){
       setGreek('Evening')
     }
 
-     const findnote =async()=>{
-      const result=await AsyncStorage.getItem('notes');
-      console.log(result)
-       if(result!==null) setnotes(JSON.parse(result))
-    }
-
     useEffect(()=>{
-      findnote()
       findgreek()
     },[])
    
@@ -42,16 +39,47 @@ export default function Notes({User}){
       setnotes(updatenote);
       await AsyncStorage.setItem('notes',JSON.stringify(updatenote));
     }
+
+    const opennotes=(note)=>{
+         setvi(true);
+         setno(note);
+    }
+
+    const handleonsearch=async(text)=>{
+        setsearchquery(text);
+        if(!text.trim()){
+          setsearchquery('')
+          setReultnotfound(false);
+          return await findnote()
+        }
+        const findquery=notes.filter(note=>{
+          if(note.title.toLowerCase().includes(text.toLowerCase())){
+            return note;
+          }
+        }) 
+        if(findquery.length){
+          setnotes([...findquery])
+        }else{
+          setReultnotfound(true);
+        }
+        
+    }
+
+    const handleonclear=async()=>{
+        setsearchquery('')
+        setReultnotfound(false)
+        await findnote()
+    }
   return (
     <View style={{flex:1}}>
     <StatusBar barStyle='dark-content' backgroundColor={Colors.LIGHT}/>
     <TouchableWithoutFeedback  onPress={Keyboard.dismiss}>
     <SafeAreaView style={styles.Header}>
       <Text style={styles.text}>Good {Greek} {User}</Text>
-      <Searchbar/>
-      <View>
-      <FlatList data={notes} numColumns={2} columnWrapperStyle={{justifyContent:'space-between'}} keyExtractor={item=>item.id.toString()}
-      renderItem={({item})=><Note items={item}/>} />
+      <Searchbar value={Searchquery} onclear={handleonclear} onChangeText={handleonsearch} />
+      <View style={{flex:1}}>
+     {Resultnotfound?(<Notfound/>):(<FlatList data={notes} numColumns={2} columnWrapperStyle={{justifyContent:'space-between'}} keyExtractor={item=>item.id.toString()}
+      renderItem={({item})=><Note onpress={()=>opennotes(item)}items={item}/>} />)} 
       </View>
       {!notes.length ?<View style={[styles.Addbox,StyleSheet.absoluteFillObject]}>
         <Text style={styles.Addtext}>Add Notes</Text>

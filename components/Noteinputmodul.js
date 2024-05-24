@@ -1,14 +1,22 @@
 import { Keyboard, Modal, Pressable, StatusBar, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Colors } from '../constants/Colors'
 import { AntDesign } from '@expo/vector-icons'
 
-export function Noteinputmodul({visible,Setadd,onSubmit}){
+export function Noteinputmodul({visible,Setadd,onSubmit,isEdit,note}){
     const [Title,setTitle]=useState('')
     const [desc,setdesc]=useState('')
     const handleModulclose=()=>{
        Keyboard.dismiss();
     }
+
+    useEffect(()=>{
+        if(isEdit){
+            setTitle(note.title);
+            setdesc(note.desc);
+        }
+    },[isEdit])
+
     const handleonchange=(text,Valuefrom)=>{
         if(Valuefrom==='title') setTitle(text)
         if(Valuefrom==='desc') setdesc(text)
@@ -18,15 +26,21 @@ export function Noteinputmodul({visible,Setadd,onSubmit}){
 
     const handlesubmit=()=>{
         if(!Title.trim() && !desc.trim()) return Setadd(false);
-        onSubmit(Title,desc)
-        setTitle('')
-        setdesc('')
+
+        if(isEdit){
+             onSubmit(Title,desc,Date.now())
+        }else{
+             onSubmit(Title,desc)
+             setTitle('')
+             setdesc('')
+        }
+       
         Setadd(false)
     }
 
     const closemodul=()=>{
-        setTitle('')
-        setdesc('')
+        if(!isEdit){setTitle('')
+        setdesc('')}
         Setadd(false)
     }
 

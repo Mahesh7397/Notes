@@ -5,7 +5,7 @@ import { Colors } from '@/constants/Colors';
 import { AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function Intro({onFinish}) {
+export default function Intro({onFinish}) {
     const [Name,setName]=useState('')
 
     const handleuser = (text) => setName(text);
