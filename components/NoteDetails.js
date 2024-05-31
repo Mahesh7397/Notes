@@ -33,7 +33,6 @@ export default function NoteDetails({data,seton}){
      if(result !==null) notes=JSON.parse(result)
     
     const newnotes=notes.filter(n=>n.id!==note.id)
-    console.log(newnotes)
     setnotes(newnotes)
     await AsyncStorage.setItem('notes',JSON.stringify(newnotes))
     seton(false)

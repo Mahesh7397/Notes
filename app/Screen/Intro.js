@@ -13,11 +13,9 @@ export default function Intro({onFinish}) {
     const handlesubmit=async()=>{
         const user={name:Name}
         await AsyncStorage.setItem('user',JSON.stringify(user));
-        console.log('Saved successfuly')
         if(onFinish) onFinish();
     }
     
-    //console.log(User);
   return (
     <View style={styles.container}>
     <StatusBar hidden/>
