@@ -24,3 +24,5 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 # App Icon
 
 <img src='./Image/icon.png' width="100" height="100">
+
+<hr>
