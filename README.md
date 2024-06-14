@@ -29,3 +29,9 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 <img src='./Image/frantpage.jpg' width="170" height="350"> <img src='./Image/homepage.jpg' width="170" height="350"> <img src='./Image/notecreate.jpg' width="170" height="350"><br>
 <img src='./Image/home 2 .jpg' width="170" height="350"> <img src='./Image/reader.jpg' width="170" height="350">
+
+<hr>
+
+# Features
+
+- [Read and Write Notes]
