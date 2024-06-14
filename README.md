@@ -23,4 +23,4 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 # App Icon
 
-![Notes!](./Image/icon.png=250x250)
+<img src='./Image/icon.png' width="100" height="100">
