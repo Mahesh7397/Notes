@@ -20,6 +20,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 
+<hr>
 
 # App Icon
 
