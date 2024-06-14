@@ -26,3 +26,6 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 <img src='./Image/icon.png' width="100" height="100">
 
 <hr>
+
+<img src='./Image/frantpage.jpg' width="330" height="1600"><img src='./Image/homepage.jpg' width="330" height="1600"><img src='./Image/notecreate.jpg' width="330" height="1600">
+<img src='./Image/home 2 .jpg' width="330" height="1600"><img src='./Image/reader.jpg' width="330" height="1600">
